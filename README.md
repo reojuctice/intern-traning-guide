@@ -93,7 +93,7 @@
 
 **为什么重要？**
 
-我们这边主要做 C 端业务，大量用 SSR。首屏快、SEO 好、低端机也能跑得动。
+我们这边主要做 C 端业务，大量用 SSR。首屏快、低端机也能跑得动。
 
 **Next.js 15/16 必知必会：**
 
@@ -711,7 +711,104 @@ function markItemsProcessed(items: Item[]): Item[] {
 
 ---
 
+## 四、Python 入门（可选）
 
+> 这是**学有余力**的同学的拓展内容。我们的主力语言是 TypeScript，但很多优秀的 AI Agent 项目（如 Browser-Use、LangChain）是用 Python 写的。懂点 Python 能让你更好地理解和借鉴这些项目。
+
+### 为什么前端也值得学 Python？
+
+- **AI 生态主力语言**：大部分 AI/ML 库、Agent 框架都是 Python 优先
+- **快速验证想法**：Python 写原型比 TypeScript 快，适合快速实验
+- **阅读源码必备**：想深入 Browser-Use、Skyvern 这些项目，得看懂 Python
+
+### 快速上手路径
+
+**对于有编程基础的你，Python 学起来很快：**
+
+**第一步：基础语法（1-2 天）**
+- 变量、函数、类（和 JS/TS 很像，语法更简洁）
+- 列表、字典、集合（对应 Array、Object、Set）
+- 列表推导式、生成器（Python 特色，很优雅）
+
+```python
+# Python 的简洁之美
+names = [user["name"] for user in users if user["active"]]
+
+# 对比 TypeScript
+# const names = users.filter(u => u.active).map(u => u.name)
+```
+
+**第二步：异步编程（重点）**
+- async/await 语法（和 JS 几乎一样）
+- asyncio 库的基本使用
+- 异步上下文管理器（with 语句）
+
+```python
+import asyncio
+
+async def fetch_data(url: str) -> dict:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.json()
+```
+
+**第三步：类型标注（必学）**
+- Python 3.10+ 的类型语法很像 TypeScript
+- 用 mypy 做静态检查
+- Pydantic 做运行时校验（类似 Zod）
+
+```python
+from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str | None = None  # 可选字段
+
+# 自动校验，类型不对会报错
+user = User(id=1, name="test")
+```
+
+### AI 场景必备库
+
+**LLM 调用**
+- `openai`：OpenAI 官方 SDK
+- `anthropic`：Claude 官方 SDK
+- `langchain`：LLM 应用框架（概念多，但值得学）
+
+**浏览器自动化**
+- `playwright`：和 JS 版 API 几乎一样
+- `browser-use`：AI 驱动的浏览器自动化
+
+**数据处理**
+- `pydantic`：数据校验，AI 返回数据必用
+- `httpx` / `aiohttp`：异步 HTTP 请求
+
+### 实践建议
+
+**从阅读开始**
+1. 克隆 Browser-Use 项目
+2. 跑起来，看看效果
+3. 读源码，理解它怎么组织代码、怎么调用 LLM
+4. 尝试改几行代码，加个小功能
+
+**学习资源**
+- [Python 官方教程](https://docs.python.org/3/tutorial/) - 快速过一遍基础
+- [Real Python](https://realpython.com/) - 实用教程，质量高
+- [FastAPI 文档](https://fastapi.tiangolo.com/) - 现代 Python Web 框架，学异步和类型的好材料
+
+**环境配置**
+- 推荐用 `uv`（Rust 写的包管理器，超快）
+- 或者用 `poetry`（依赖管理更规范）
+- VSCode + Pylance 插件，体验接近 TypeScript
+
+### 注意事项
+
+- **不要本末倒置**：Python 是加分项，TypeScript + React 才是主线
+- **不用太深入**：能看懂代码、能写简单脚本就够了
+- **遇到问题问 AI**：Python 语法问题 AI 解答得很好
+
+---
 
 ## 五、资源推荐
 
@@ -733,6 +830,12 @@ function markItemsProcessed(items: Item[]): Item[] {
 - ⭐ RA-Gen：arXiv:2510.08665 - 代码生成 Agent 架构
 - ⭐ Beyond ReAct：arXiv:2511.10037 - 规划器中心架构
 - 💡 REACT 框架：arXiv:2505.18933 - 经典 Agent 框架
+
+### Python 学习（可选）
+- ⭐ [Python 官方教程](https://docs.python.org/3/tutorial/) - 有编程基础的话几小时就能过完
+- ⭐ [FastAPI 文档](https://fastapi.tiangolo.com/) - 现代 Python Web 框架，学异步的好材料
+- 💡 [Real Python](https://realpython.com/) - 高质量实用教程
+- 💡 [uv 包管理器](https://github.com/astral-sh/uv) - Rust 写的，比 pip 快 10-100 倍
 
 ### 工具平台
 - 🔥 Cursor - **AI 编辑器，必用**
